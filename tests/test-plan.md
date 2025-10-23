@@ -53,6 +53,21 @@ The "Kanban Board with Reports" application is a task management tool with the f
 - The task is removed from the Kanban board.
 - The task count is updated.
 
+#### 1.5 Switch Between Kanban Boards
+
+**Steps:**
+1. Navigate to the Home page.
+2. Locate the board selector dropdown or menu.
+3. Click on the dropdown or menu to view available boards.
+4. Select a different board from the list.
+5. Wait for the board to load.
+
+**Expected Results:**
+- The selected board is displayed with its tasks and lists.
+- The board name is updated in the UI.
+- The task and list counts reflect the selected board's data.
+- No data from the previous board is visible unless shared between boards.
+
 ### 2. Reports Functionality
 
 #### 2.1 View Reports
