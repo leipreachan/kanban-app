@@ -208,7 +208,7 @@ export function KanbanBoard() {
         </div>
       )}
 
-      <div className="flex-1 overflow-x-auto overflow-y-hidden">
+      <div className="flex-1 overflow-x-auto overflow-y-scroll">
         <div className="flex gap-4 p-6 h-full">
           {expandedLists.map((list, index) => {
             const originalIndex = data.lists.findIndex((l) => l.id === list.id)

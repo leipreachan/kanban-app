@@ -160,6 +160,31 @@ export function DataManager() {
           </Alert>
         )}
 
+        <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
+          <h4 className="text-sm font-semibold">Text Import Format Example:</h4>
+          <pre className="text-xs font-mono bg-background p-3 rounded border overflow-x-auto">
+            {`16/10/2025 - 23/10/2025
+Todo:
+  - Task in backlog
+  - Another task to do
+
+Doing:
+  - Actively working on this
+  - In progress task
+
+Completed:
+  - Finished feature
+  - Done task`}
+          </pre>
+          <p className="text-xs text-muted-foreground">
+            • Supports multiple date formats: DD/MM/YYYY, YYYY/MM/DD, "Oct 20, 2025"
+            <br />• List names are case-insensitive (e.g., "todo" matches "Todo")
+            <br />• Task names are case-insensitive (duplicates won't be added)
+            <br />• Empty lines are ignored
+            <br />• Only adds tasks to existing lists (won't create new lists)
+          </p>
+        </div>
+
         <div className="text-sm text-muted-foreground space-y-1">
           <p>• Text export creates a readable backup of task titles grouped by lists</p>
           <p>• JSON export creates a complete backup with all data (tags, dates, descriptions)</p>
