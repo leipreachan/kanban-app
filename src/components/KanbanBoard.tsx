@@ -84,10 +84,9 @@ export function KanbanBoard() {
     setLists(lists.map((l) => (l.id === listId ? { ...l, title } : l)))
   }
 
-  const addTask = (listId: string, title: string, description: string) => {
+  const addTask = (listId: string, description: string) => {
     const newTask: Task = {
       id: Date.now().toString(),
-      title,
       description,
       created: Date.now(),
       updated: Date.now(),

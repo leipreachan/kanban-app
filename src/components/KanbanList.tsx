@@ -10,7 +10,7 @@ import { Plus, Trash2, Edit2, Check, X } from "lucide-react"
 interface KanbanListProps {
   list: List
   tasks: Task[]
-  onAddTask: (listId: string, title: string, description: string) => void
+  onAddTask: (listId: string, description: string) => void
   onDeleteTask: (taskId: string) => void
   onUpdateTask: (taskId: string, updates: Partial<Task>) => void
   onMarkComplete: (taskId: string) => void
@@ -30,7 +30,6 @@ export function KanbanList({
 }: KanbanListProps) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isEditingTitle, setIsEditingTitle] = useState(false)
-  const [newTaskTitle, setNewTaskTitle] = useState("")
   const [newTaskDescription, setNewTaskDescription] = useState("")
   const [editedTitle, setEditedTitle] = useState(list.title)
 
@@ -39,9 +38,8 @@ export function KanbanList({
   })
 
   const handleAddTask = () => {
-    if (newTaskTitle.trim()) {
-      onAddTask(list.id, newTaskTitle, newTaskDescription)
-      setNewTaskTitle("")
+    if (newTaskDescription.trim()) {
+      onAddTask(list.id, newTaskDescription)
       setNewTaskDescription("")
       setIsAddingTask(false)
     }
@@ -127,14 +125,7 @@ export function KanbanList({
       <div className="p-4 border-t border-border">
         {isAddingTask ? (
           <div className="space-y-2">
-            <input
-              type="text"
-              placeholder="Task title"
-              value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="w-full px-3 py-2 bg-input text-foreground rounded border border-border focus:outline-none focus:ring-2 focus:ring-ring"
-              autoFocus
-            />
+
             <textarea
               placeholder="Description (optional)"
               value={newTaskDescription}
@@ -152,7 +143,6 @@ export function KanbanList({
               <button
                 onClick={() => {
                   setIsAddingTask(false)
-                  setNewTaskTitle("")
                   setNewTaskDescription("")
                 }}
                 className="px-3 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"

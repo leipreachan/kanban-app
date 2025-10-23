@@ -172,11 +172,10 @@ export const createBoard = (name: string): Board => {
   }
 }
 
-export const createTask = (listId: string, title: string, description?: string): Task => {
+export const createTask = (listId: string, description: string): Task => {
   const now = new Date().toISOString()
   return {
     id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    title,
     description,
     tags: [],
     listId,

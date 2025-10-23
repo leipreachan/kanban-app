@@ -196,10 +196,10 @@ export function useKanban() {
   )
 
   const addTask = useCallback(
-    (listId: string, title: string, description?: string) => {
+    (listId: string, description: string) => {
       if (!data.activeBoard) return
 
-      const newTask = createTask(listId, title, description)
+      const newTask = createTask(listId, description)
       const newData = {
         ...data,
         boards: data.boards.map((board) => {

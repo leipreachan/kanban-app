@@ -13,7 +13,7 @@ import type { List, Task } from "@/lib/types"
 
 interface KanbanListProps {
   list: List
-  onAddTask: (listId: string, title: string, description?: string) => void
+  onAddTask: (listId: string, description: string) => void
   onDeleteTask: (taskId: string) => void
   onUpdateTask: (taskId: string, updates: Partial<Task>) => void
   onDeleteList: (listId: string) => void
@@ -40,14 +40,12 @@ export function KanbanList({
 }: KanbanListProps) {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [isEditingTitle, setIsEditingTitle] = useState(false)
-  const [newTaskTitle, setNewTaskTitle] = useState("")
   const [newTaskDescription, setNewTaskDescription] = useState("")
   const [listTitle, setListTitle] = useState(list.title)
 
   const handleAddTask = () => {
-    if (newTaskTitle.trim()) {
-      onAddTask(list.id, newTaskTitle, newTaskDescription || undefined)
-      setNewTaskTitle("")
+    if (newTaskDescription.trim()) {
+      onAddTask(list.id, newTaskDescription)
       setNewTaskDescription("")
       setIsAddingTask(false)
     }
@@ -66,7 +64,7 @@ export function KanbanList({
   }
 
   return (
-    <div className="flex-shrink-0 w-80" onDragOver={onDragOver} onDrop={(e) => onDrop(e, list.id)}>
+    <div className="shrink-0 w-80" onDragOver={onDragOver} onDrop={(e) => onDrop(e, list.id)}>
       <Card className="h-full flex flex-col">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between gap-2">
@@ -133,17 +131,10 @@ export function KanbanList({
           {isAddingTask ? (
             <Card className="mt-2 border-dashed">
               <CardContent className="p-4">
-                <Input
-                  value={newTaskTitle}
-                  onChange={(e) => setNewTaskTitle(e.target.value)}
-                  placeholder="Task title"
-                  className="mb-2"
-                  autoFocus
-                />
                 <Textarea
                   value={newTaskDescription}
                   onChange={(e) => setNewTaskDescription(e.target.value)}
-                  placeholder="Task description (optional)"
+                  placeholder="Task description"
                   rows={3}
                   className="mb-2"
                 />
