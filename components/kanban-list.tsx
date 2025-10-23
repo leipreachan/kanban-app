@@ -106,7 +106,7 @@ export function KanbanList({
                   <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => setIsEditingTitle(true)}>
                     <Edit2 className="h-4 w-4" />
                   </Button>
-                  <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => onDeleteList(list.id)}>
+                  <Button size="icon" variant="ghost" className="h-8 w-8 hover:text-red-500" onClick={() => onDeleteList(list.id)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -139,10 +139,10 @@ export function KanbanList({
                   className="mb-2"
                 />
                 <div className="flex gap-2">
-                  <Button size="sm" onClick={handleAddTask}>
+                  <Button size="default" onClick={handleAddTask}>
                     Add Task
                   </Button>
-                  <Button size="sm" variant="outline" onClick={() => setIsAddingTask(false)}>
+                  <Button size="default" variant="outline" onClick={() => setIsAddingTask(false)}>
                     Cancel
                   </Button>
                 </div>

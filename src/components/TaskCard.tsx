@@ -34,7 +34,7 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
 
   if (isEditing) {
     return (
-      <div ref={setNodeRef} style={style} className="bg-secondary p-3 rounded-lg border border-border space-y-2">
+      <div ref={setNodeRef} style={style} className="bg-secondary border border-border">
         <textarea
           value={editedDescription}
           onChange={(e) => setEditedDescription(e.target.value)}
@@ -66,9 +66,9 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-secondary p-3 rounded-lg border border-border hover:border-primary/50 transition-colors group"
+      className="bg-secondary border border-border hover:border-primary/50 transition-colors group"
     >
-      <div className="flex items-start gap-2">
+      <div className="flex items-start gap-1">
         <button
           {...attributes}
           {...listeners}
@@ -91,16 +91,16 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
           {!task.completed && (
             <button
               onClick={() => onMarkComplete(task.id)}
-              className="p-1 hover:bg-muted rounded transition-colors"
+              className="hover:bg-muted rounded transition-colors"
               title="Mark as complete"
             >
               <CheckCircle2 className="w-4 h-4 text-muted-foreground hover:text-green-500" />
             </button>
           )}
-          <button onClick={() => setIsEditing(true)} className="p-1 hover:bg-muted rounded transition-colors">
+          <button onClick={() => setIsEditing(true)} title="Edit" className="hover:bg-muted rounded transition-colors">
             <Edit2 className="w-4 h-4 text-muted-foreground" />
           </button>
-          <button onClick={() => onDelete(task.id)} className="p-1 hover:bg-muted rounded transition-colors">
+          <button onClick={() => onDelete(task.id)} title="Delete" className="hover:bg-muted rounded transition-colors">
             <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-500" />
           </button>
         </div>
