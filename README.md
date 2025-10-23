@@ -68,28 +68,28 @@ A powerful, feature-rich Kanban board application with advanced reporting capabi
 ### Setup
 
 1. **Clone or download the repository**
-   \`\`\`bash
+   ```bash
    git clone <repository-url>
    cd kanban-app
-   \`\`\`
+   ```
 
 2. **Install dependencies**
-   \`\`\`bash
+   ```bash
    npm install
    # or
    yarn install
    # or
    pnpm install
-   \`\`\`
+   ```
 
 3. **Run the development server**
-   \`\`\`bash
+   ```bash
    npm run dev
    # or
    yarn dev
    # or
    pnpm dev
-   \`\`\`
+   ```
 
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
@@ -101,13 +101,13 @@ A powerful, feature-rich Kanban board application with advanced reporting capabi
 Vercel is the easiest way to deploy Next.js applications:
 
 1. **Push your code to GitHub**
-   \`\`\`bash
+   ```bash
    git init
    git add .
    git commit -m "Initial commit"
    git remote add origin <your-github-repo-url>
    git push -u origin main
-   \`\`\`
+   ```
 
 2. **Deploy to Vercel**
    - Go to [vercel.com](https://vercel.com)
@@ -116,10 +116,10 @@ Vercel is the easiest way to deploy Next.js applications:
    - Click "Deploy"
 
    Or use the Vercel CLI:
-   \`\`\`bash
+   ```bash
    npm i -g vercel
    vercel
-   \`\`\`
+   ```
 
 3. **Access your deployed app**
    Vercel will provide you with a production URL (e.g., `your-app.vercel.app`)
@@ -127,13 +127,13 @@ Vercel is the easiest way to deploy Next.js applications:
 ### Deploy to Other Platforms
 
 #### Netlify
-\`\`\`bash
+```bash
 npm run build
 # Deploy the .next folder
-\`\`\`
+```
 
 #### Docker
-\`\`\`dockerfile
+```dockerfile
 FROM node:18-alpine
 WORKDIR /app
 COPY package*.json ./
@@ -142,20 +142,20 @@ COPY . .
 RUN npm run build
 EXPOSE 3000
 CMD ["npm", "start"]
-\`\`\`
+```
 
 Build and run:
-\`\`\`bash
+```bash
 docker build -t kanban-app .
 docker run -p 3000:3000 kanban-app
-\`\`\`
+```
 
 #### Static Hosting
 For static export (note: some features may be limited):
-\`\`\`bash
+```bash
 npm run build
 # Deploy the 'out' folder to any static hosting service
-\`\`\`
+```
 
 ## Use Cases
 
@@ -265,14 +265,14 @@ npm run build
 ## Data Format
 
 ### Text Report Format
-\`\`\`
+```
 DD/MM/YYYY - DD/MM/YYYY
 List Name 1:
   - Task description 1
   - Task description 2
 List Name 2:
   - Task description 3
-\`\`\`
+```
 
 ### JSON Format
 Complete data structure including:
