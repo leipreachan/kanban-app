@@ -15,7 +15,6 @@ interface TaskCardProps {
 
 export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardProps) {
   const [isEditing, setIsEditing] = useState(false)
-  const [editedTitle, setEditedTitle] = useState(task.title)
   const [editedDescription, setEditedDescription] = useState(task.description)
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: task.id })
@@ -27,8 +26,8 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
   }
 
   const handleUpdate = () => {
-    if (editedTitle.trim()) {
-      onUpdate(task.id, { title: editedTitle, description: editedDescription })
+    if (editedDescription.trim()) {
+      onUpdate(task.id, { description: editedDescription })
       setIsEditing(false)
     }
   }
@@ -36,13 +35,6 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
   if (isEditing) {
     return (
       <div ref={setNodeRef} style={style} className="bg-secondary p-3 rounded-lg border border-border space-y-2">
-        <input
-          type="text"
-          value={editedTitle}
-          onChange={(e) => setEditedTitle(e.target.value)}
-          className="w-full px-2 py-1 bg-input text-foreground rounded border border-border focus:outline-none focus:ring-2 focus:ring-ring"
-          autoFocus
-        />
         <textarea
           value={editedDescription}
           onChange={(e) => setEditedDescription(e.target.value)}
@@ -58,7 +50,6 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
           </button>
           <button
             onClick={() => {
-              setEditedTitle(task.title)
               setEditedDescription(task.description)
               setIsEditing(false)
             }}
@@ -87,8 +78,7 @@ export function TaskCard({ task, onDelete, onUpdate, onMarkComplete }: TaskCardP
         </button>
 
         <div className="flex-1 min-w-0">
-          <h4 className="font-medium text-foreground text-balance">{task.title}</h4>
-          {task.description && <p className="text-sm text-muted-foreground mt-1 text-pretty">{task.description}</p>}
+          <p className="text-sm text-muted-foreground mt-1 text-pretty">{task.description}</p>
           {task.completed && (
             <div className="flex items-center gap-1 mt-2 text-xs text-green-500">
               <CheckCircle2 className="w-3 h-3" />

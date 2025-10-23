@@ -22,8 +22,7 @@ interface TaskCardProps {
 
 export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: TaskCardProps) {
   const [isEditing, setIsEditing] = useState(false)
-  const [title, setTitle] = useState(task.title)
-  const [description, setDescription] = useState(task.description || "")
+  const [description, setDescription] = useState(task.description)
   const [tags, setTags] = useState<string[]>(task.tags || [])
   const [newTag, setNewTag] = useState("")
   const [isAddingTag, setIsAddingTag] = useState(false)
@@ -31,14 +30,13 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
   const handleSave = () => {
     const extractedTags = extractTagsFromText(description)
     const allTags = [...new Set([...tags, ...extractedTags])]
-    onUpdate(task.id, { title, description, tags: allTags })
+    onUpdate(task.id, { description, tags: allTags })
     setIsEditing(false)
     setIsAddingTag(false)
   }
 
   const handleCancel = () => {
-    setTitle(task.title)
-    setDescription(task.description || "")
+    setDescription(task.description)
     setTags(task.tags || [])
     setIsEditing(false)
     setIsAddingTag(false)
@@ -79,7 +77,6 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
     return (
       <Card className="mb-2">
         <CardHeader className="p-4 pb-2">
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Task title" className="mb-2" />
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -166,10 +163,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
           <div className="flex items-start gap-2 flex-1">
             <GripVertical className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
             <div className="flex-1 min-w-0">
-              <CardTitle className={`text-base ${task.completedAt ? "line-through text-muted-foreground" : ""}`}>
-                {task.title}
-              </CardTitle>
-              {task.description && <CardDescription className="mt-1 text-sm">{task.description}</CardDescription>}
+              <CardDescription className="mt-1 text-sm">{task.description}</CardDescription>
               {task.tags && task.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
                   {task.tags.map((tag) => {

@@ -1,7 +1,6 @@
 export interface Task {
   id: string
-  title: string
-  description?: string
+  description: string
   tags: string[]
   createdAt: string
   updatedAt: string

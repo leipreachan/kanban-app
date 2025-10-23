@@ -138,7 +138,7 @@ export function ReportsPage() {
 
       report += `${list.title}:\n`
       tasks.forEach((task) => {
-        report += `  - ${task.title}\n`
+        report += `  - ${task.description}\n`
       })
       report += `\n`
     })
@@ -479,14 +479,7 @@ export function ReportsPage() {
                                       <CardContent className="p-4">
                                         <div className="flex items-start justify-between gap-2">
                                           <div className="flex-1">
-                                            <h5
-                                              className={`font-medium ${task.completedAt ? "line-through text-muted-foreground" : ""}`}
-                                            >
-                                              {task.title}
-                                            </h5>
-                                            {task.description && (
-                                              <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
-                                            )}
+                                            <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
                                             <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
                                               <span>Updated: {new Date(task.updatedAt).toLocaleDateString()}</span>
                                               {task.completedAt && (
@@ -525,14 +518,7 @@ export function ReportsPage() {
                               <CardContent className="p-4">
                                 <div className="flex items-start justify-between gap-2">
                                   <div className="flex-1">
-                                    <h4
-                                      className={`font-medium ${task.completedAt ? "line-through text-muted-foreground" : ""}`}
-                                    >
-                                      {task.title}
-                                    </h4>
-                                    {task.description && (
-                                      <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
-                                    )}
+                                    <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
                                     <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
                                       <span>Updated: {new Date(task.updatedAt).toLocaleDateString()}</span>
                                       {task.completedAt && (

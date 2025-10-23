@@ -1,3 +1,4 @@
+import { importTextReport } from "./text-import-utils"
 import type { KanbanData, List, Task, Board } from "./types"
 
 const STORAGE_KEY = "kanban-data"
@@ -109,10 +110,11 @@ export const storage = {
 
     board.lists.forEach((list) => {
       if (list.tasks.length > 0) {
-        report += `${list.title}:\n`
+        report += `${list.title}:\n`;
         list.tasks.forEach((task) => {
-          report += `  - ${task.title}\n`
+          report += ` - ${task.description}\n`
         })
+        report += `\n`;
       }
     })
 
@@ -139,9 +141,10 @@ export const storage = {
     }
   },
 
-  importData: (jsonString: string): boolean => {
+  importData: (textString: string): boolean => {
     try {
-      const data = JSON.parse(jsonString) as KanbanData
+      const data = importTextReport(textString, storage.getData()) as KanbanData;
+      console.log(JSON.stringify(storage.getData()));
 
       if (!data.boards || !Array.isArray(data.boards)) {
         throw new Error("Invalid data structure")

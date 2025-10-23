@@ -179,8 +179,7 @@ export function Reports() {
                 <div className="space-y-2 pl-6">
                   {dateTasks.map((task) => (
                     <div key={task.id} className="bg-secondary p-3 rounded border border-border">
-                      <h5 className="font-medium text-foreground">{task.title}</h5>
-                      {task.description && <p className="text-sm text-muted-foreground mt-1">{task.description}</p>}
+                      <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
                       <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                         <span>Created: {new Date(task.created).toLocaleString()}</span>
                         <span>Updated: {new Date(task.updated).toLocaleString()}</span>

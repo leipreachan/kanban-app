@@ -1,4 +1,4 @@
-import type { KanbanData } from "./types"
+import type { Board, KanbanData } from "./types"
 
 export interface ParsedTextReport {
   dateRange: string
@@ -95,7 +95,7 @@ export function parseTextReport(text: string): ParsedTextReport | null {
     let currentList: string | null = null
 
     for (let i = 1; i < lines.length; i++) {
-      const line = lines[i]
+      const line = lines[i];
 
       // Check if this is a list name (ends with colon)
       if (line.endsWith(":")) {
@@ -104,16 +104,16 @@ export function parseTextReport(text: string): ParsedTextReport | null {
       }
       // Check if this is a task (starts with dash)
       else if (line.startsWith("-") && currentList) {
-        const taskTitle = line.slice(1).trim()
-        if (taskTitle) {
-          listTasks.get(currentList)?.push(taskTitle)
+        const taskDescription = line.slice(1).trim()
+        if (taskDescription) {
+          listTasks.get(currentList)?.push(taskDescription)
         }
       }
     }
 
     return { dateRange, listTasks }
   } catch (error) {
-    console.error("[v0] Error parsing text report:", error)
+    console.error("Error parsing text report:", error)
     return null
   }
 }
@@ -122,41 +122,46 @@ export function importTextReport(text: string, currentData: KanbanData): KanbanD
   const parsed = parseTextReport(text)
   if (!parsed) return null
 
-  const newData = { ...currentData }
+  const activeBoardId = currentData.activeBoard;
+
+  const newData = {...currentData};
+  const currentBoardData = newData.boards.filter(({id}) => id == activeBoardId)[0];
 
   // Process each list from the parsed report
-  parsed.listTasks.forEach((taskTitles, listName) => {
-    const targetList = newData.lists.find((list) => list.title.toLowerCase() === listName.toLowerCase())
+  parsed.listTasks.forEach((taskDescriptions, listName) => {
+    const targetList = currentBoardData.lists.find((list) => list.title.toLowerCase() === listName.toLowerCase())
 
+    console.log(`Target List: ${JSON.stringify(targetList)}`);
     if (!targetList) {
       // List doesn't exist, skip it (as per requirements)
-      console.log(`[v0] List "${listName}" not found, skipping`)
-      return
+      console.log(`List "${listName}" not found, skipping`);
+      return;
     }
 
-    const existingTaskTitles = new Set(targetList.tasks.map((task) => task.title.toLowerCase()))
+    const existingTaskDescriptions = new Set(targetList.tasks.map((task) => task.description.toLowerCase()))
 
     // Add new tasks that don't already exist
-    taskTitles.forEach((taskTitle) => {
-      if (!existingTaskTitles.has(taskTitle.toLowerCase())) {
+    taskDescriptions.forEach((description) => {
+      if (!existingTaskDescriptions.has(description.toLowerCase())) {
         // Create new task
         const newTask = {
           id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           listId: targetList.id,
-          title: taskTitle,
-          description: "",
+          description: description,
           tags: [],
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         }
 
-        targetList.tasks.push(newTask)
-        console.log(`[v0] Added task "${taskTitle}" to list "${listName}"`)
+        targetList.tasks.push(newTask);
+        console.log(`Added task "${description}" to list "${listName}"`)
       } else {
-        console.log(`[v0] Task "${taskTitle}" already exists in list "${listName}", skipping`)
+        console.log(`Task "${description}" already exists in list "${listName}", skipping`)
       }
-    })
+    });
   })
+
+  console.log(`Imported Data: ${JSON.stringify(newData)}`);
 
   return newData
 }
