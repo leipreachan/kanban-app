@@ -76,7 +76,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
   if (isEditing) {
     return (
       <Card className="mb-2">
-        <CardHeader className="p-4">
+        <CardHeader className="p-2 pb-0">
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -142,11 +142,11 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
         </CardHeader>
         <CardContent className="p-4 pt-2">
           <div className="flex gap-2">
-            <Button size="sm" onClick={handleSave}>
+            <Button size="default" onClick={handleSave}>
               <Check className="h-4 w-4 mr-1" />
               Save
             </Button>
-            <Button size="sm" variant="outline" onClick={handleCancel}>
+            <Button size="default" variant="outline" onClick={handleCancel}>
               <X className="h-4 w-4 mr-1" />
               Cancel
             </Button>
@@ -159,11 +159,11 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
   return (
     <Card className="cursor-move hover:shadow-md transition-shadow" draggable onDragStart={handleTaskDragStart}>
       <CardHeader className="">
-        <div className="flex items-start justify-between gap-2">
+        <div className="flex items-start justify-between ">
           <div className="flex items-start gap-2 flex-1">
-            <GripVertical className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+            <GripVertical className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
             <div className="flex-1 min-w-0">
-              <CardDescription className="mt-1 text-sm">{task.description}</CardDescription>
+              <CardDescription className="text-sm">{task.description}</CardDescription>
               {task.tags && task.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                   {task.tags.map((tag) => {
@@ -184,19 +184,19 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
               )}
             </div>
           </div>
-          <div className="flex gap-1 shrink-0">
+          <div className="flex shrink-0">
             <Button
-              size="icon"
+              size="xs"
               variant="ghost"
               onClick={handleComplete}
               title={task.completedAt ? "Mark as incomplete" : "Mark as complete"}
             >
               <Check className={`h-4 w-4 ${task.completedAt ? "text-green-600" : ""}`} />
             </Button>
-            <Button size="icon" variant="ghost" onClick={() => setIsEditing(true)}>
+            <Button size="xs" variant="ghost" onClick={() => setIsEditing(true)} title="Edit">
               <Edit2 className="h-4 w-4" />
             </Button>
-            <Button size="icon" variant="ghost" onClick={() => onDelete(task.id)}>
+            <Button size="xs" variant="ghost" onClick={() => onDelete(task.id)} title="Delete" className="hover:text-red-500">
               <Trash2 className="h-4 w-4" />
             </Button>
           </div>
