@@ -1,17 +1,7 @@
-import { test as base, expect } from '@playwright/test';
+import { mainPageTest as test } from './fixtures/main-page';
 
-const test = base.extend<{ mainPage: Page }>({
-  mainPage: async ({ page }, use) => {
-    await page.goto('http://localhost:3000/');
-    await page.getByRole('button', { name: 'Add List' }).click();
-    await page.getByRole('textbox', { name: 'List title' }).fill('main_list');
-    await page.getByRole('button', { name: 'Add List' }).click();
-    use(page);
-  },
-});
-
-test.describe('Test group', () => {
-  test('seed', async ({ mainPage }) => {
-    await mainPage.goto('/');
+test.describe('Seed for main page with a list', () => {
+  test('seed', async ({mainPage}) => {
+    const page = mainPage;
   });
 });
