@@ -21,7 +21,7 @@ export function AddListButton({ onAdd }: AddListButtonProps) {
 
   if (isAdding) {
     return (
-      <div className="w-80 flex-shrink-0 bg-card rounded-lg border border-border p-4">
+      <div className="w-80 flex-shrink-0 bg-card rounded-lg border border-border p-2">
         <input
           type="text"
           placeholder="List title"
@@ -40,7 +40,7 @@ export function AddListButton({ onAdd }: AddListButtonProps) {
         <div className="flex gap-2">
           <button
             onClick={handleAdd}
-            className="flex-1 px-3 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
+            className="flex-1 px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
           >
             Add List
           </button>
@@ -49,7 +49,7 @@ export function AddListButton({ onAdd }: AddListButtonProps) {
               setIsAdding(false)
               setTitle("")
             }}
-            className="px-3 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"
+            className="px-3 py-1 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"
           >
             Cancel
           </button>
