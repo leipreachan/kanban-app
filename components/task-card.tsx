@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trash2, GripVertical, Edit2, Check, X, Tag, Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -75,16 +75,15 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
 
   if (isEditing) {
     return (
-      <Card className="mb-2">
+      <Card variant="task">
         <CardHeader className="p-2 pb-0">
           <Textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Task description (use #tag for tags)"
-            rows={3}
+            rows={4}
             className="mb-2"
           />
-
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Tag className="h-4 w-4" />
@@ -109,7 +108,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
                     placeholder="Tag name"
-                    className="h-6 w-24 text-xs"
+                    className="h-6 w-24 text-xs bg-white"
                     autoFocus
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -141,7 +140,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
           </div>
         </CardHeader>
         <CardContent className="p-4 pt-2">
-          <div className="flex gap-2">
+          <div className="flex justify-center gap-4">
             <Button size="default" onClick={handleSave}>
               <Check className="h-4 w-4 mr-1" />
               Save
@@ -157,43 +156,49 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
   }
 
   return (
-    <Card className="cursor-move hover:shadow-md transition-shadow" draggable onDragStart={handleTaskDragStart}>
+    <Card variant="task" className="cursor-move transition-shadow" draggable onDragStart={handleTaskDragStart}>
       <CardHeader className="">
-        <div className="flex items-start justify-between ">
-          <div className="flex items-start gap-2 flex-1">
-            <GripVertical className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-            <div className="flex-1 min-w-0">
-              <CardDescription className="text-sm">{task.description}</CardDescription>
-              {task.tags && task.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1">
-                  {task.tags.map((tag) => {
-                    const bgColor = getTagColor(tag)
-                    const textColor = getContrastColor(bgColor)
-                    return (
-                      <Badge
-                        key={tag}
-                        style={{ backgroundColor: bgColor, color: textColor }}
-                        className="text-xs cursor-pointer hover:opacity-80 transition-opacity border-0"
-                        onClick={(e) => handleTagClick(e, tag)}
-                      >
-                        {tag}
-                      </Badge>
-                    )
-                  })}
-                </div>
-              )}
+        <div className="flex items-start gap-2 flex-1">
+          <GripVertical className="h-4 w-4 text-base mt-0.5 shrink-0" />
+          <CardDescription className="text-base">{task.description}</CardDescription>
+        </div>
+      </CardHeader>
+      <CardFooter>
+        <div className="flex-1 min-w-0">
+          {task.tags && task.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {task.tags.map((tag) => {
+                const bgColor = getTagColor(tag)
+                const textColor = getContrastColor(bgColor)
+                return (
+                  <Badge
+                    key={tag}
+                    style={{ backgroundColor: bgColor, color: textColor }}
+                    className="text-xs cursor-pointer hover:opacity-80 transition-opacity border-0"
+                    onClick={(e) => handleTagClick(e, tag)}
+                  >
+                    {tag}
+                  </Badge>
+                )
+              })}
             </div>
-          </div>
-          <div className="flex shrink-0">
+          )}
+        </div>
+      </CardFooter>
+      <CardFooter>
+        <div className="flex justify-between w-full pl-1 pr-1">
+          <div className="text-xs text-muted-foreground w-3/5">Upd: {new Date(task.updatedAt).toLocaleString()}</div>
+          <div className="flex w-2/5 justify-around">
             <Button
               size="xs"
               variant="ghost"
               onClick={handleComplete}
               title={task.completedAt ? "Mark as incomplete" : "Mark as complete"}
+              className="hover:text-blue-500"
             >
               <Check className={`h-4 w-4 ${task.completedAt ? "text-green-600" : ""}`} />
             </Button>
-            <Button size="xs" variant="ghost" onClick={() => setIsEditing(true)} title="Edit">
+            <Button size="xs" variant="ghost" onClick={() => setIsEditing(true)} title="Edit" className="hover:text-blue-500">
               <Edit2 className="h-4 w-4" />
             </Button>
             <Button size="xs" variant="ghost" onClick={() => onDelete(task.id)} title="Delete" className="hover:text-red-500">
@@ -201,8 +206,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
             </Button>
           </div>
         </div>
-        <div className="text-xs text-muted-foreground mt-2">Updated: {new Date(task.updatedAt).toLocaleString()}</div>
-      </CardHeader>
+      </CardFooter>
     </Card>
   )
 }
