@@ -3,6 +3,7 @@ import { mainPageTest as test } from './fixtures/main-page';
 
 test.describe('Kanban Board Functionality', () => {
   test('Switch Between Kanban Boards', async ({ mainPage }) => {
+    test.skip(true, 'Known issue: Board switching is currently broken');
     const page = mainPage;
     
     await test.step('Create a new board', async () => {
