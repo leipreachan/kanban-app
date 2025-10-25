@@ -156,7 +156,7 @@ export function TaskCard({ task, onDelete, onUpdate, onDragStart, onTagClick }: 
   }
 
   return (
-    <Card variant="task" className="cursor-move transition-shadow" draggable onDragStart={handleTaskDragStart}>
+    <Card variant="task" className="cursor-move transition-shadow" draggable onDragStart={handleTaskDragStart} onDoubleClick={() => setIsEditing(true)}>
       <CardHeader className="">
         <div className="flex items-start gap-2 flex-1">
           <GripVertical className="h-4 w-4 text-base mt-0.5 shrink-0" />
