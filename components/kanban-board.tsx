@@ -150,85 +150,6 @@ export function KanbanBoard() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="px-2 pt-1 pb-1 border-b flex-shrink-0">
-        <div className="flex items-center gap-2 mb-2">
-          {collapsedLists.length > 0 && (
-            <div className="">
-              {collapsedLists.map((list) => (
-                <Button
-                  key={list.id}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => toggleListCollapse(list.id)}
-                  className="h-auto py-2 px-3"
-                >
-                  <div className="flex flex-col items-start">
-                    <span className="font-medium">{list.title}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {list.tasks.length}{" "}
-                      {list.tasks.length == 1 ? "task" : "tasks"}
-                    </span>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowTagFilter(!showTagFilter)}
-            className="gap-2"
-          >
-            <Filter className="h-4 w-4" />
-            Filter by tags
-            {selectedTags.length > 0 && (
-              <Badge variant="secondary" className="ml-1">
-                {selectedTags.length}
-              </Badge>
-            )}
-          </Button>
-          {selectedTags.length > 0 && (
-            <Button variant="ghost" size="sm" onClick={clearTagFilters}>
-              Clear filters
-            </Button>
-          )}
-        </div>
-
-        {showTagFilter && allTags.length > 0 && (
-          <div className="flex flex-wrap gap-2 p-3 bg-muted/50 rounded-md">
-            {allTags.map((tag) => {
-              const bgColor = getTagColor(tag);
-              const textColor = getContrastColor(bgColor);
-              const isSelected = selectedTags.includes(tag);
-              return (
-                <Badge
-                  key={tag}
-                  style={
-                    isSelected
-                      ? { backgroundColor: bgColor, color: textColor }
-                      : {
-                          backgroundColor: "transparent",
-                          color: bgColor,
-                          borderColor: bgColor,
-                        }
-                  }
-                  className="cursor-pointer hover:opacity-80 transition-opacity border-2"
-                  onClick={() => toggleTagFilter(tag)}
-                >
-                  {tag}
-                </Badge>
-              );
-            })}
-          </div>
-        )}
-
-        {showTagFilter && allTags.length === 0 && (
-          <div className="p-3 bg-muted/50 rounded-md text-sm text-muted-foreground">
-            No tags found. Add tags to your tasks to filter them.
-          </div>
-        )}
-      </div>
-
       <div className="flex-1 overflow-x-auto overflow-y-scroll">
         <div className="flex gap-4 p-6 h-full">
           {expandedLists.map((list, index) => {
@@ -261,7 +182,88 @@ export function KanbanBoard() {
         </div>
       </div>
 
-      <div className="flex-shrink-0 border-t bg-background p-4">
+      <div>
+        {showTagFilter && allTags.length > 0 && (
+            <div className="flex flex-wrap gap-2 p-3 bg-muted/50 rounded-md">
+              {allTags.map((tag) => {
+                const bgColor = getTagColor(tag);
+                const textColor = getContrastColor(bgColor);
+                const isSelected = selectedTags.includes(tag);
+                return (
+                  <Badge
+                    key={tag}
+                    style={
+                      isSelected
+                        ? { backgroundColor: bgColor, color: textColor }
+                        : {
+                          backgroundColor: "transparent",
+                          color: bgColor,
+                          borderColor: bgColor,
+                        }
+                    }
+                    className="cursor-pointer hover:opacity-80 transition-opacity border-2"
+                    onClick={() => toggleTagFilter(tag)}
+                  >
+                    {tag}
+                  </Badge>
+                );
+              })}
+            </div>
+          )}
+
+          {showTagFilter && allTags.length === 0 && (
+            <div className="p-3 bg-muted/50 rounded-md text-sm text-muted-foreground">
+              No tags found. Add tags to your tasks to filter them.
+            </div>
+          )}
+      </div>
+      <div className="flex shrink-0 border-t bg-background p-4 align-bottom">
+        <>
+          <div className="flex items-center gap-2 mb-2">
+            {collapsedLists.length > 0 && (
+              <div className="">
+                {collapsedLists.map((list) => (
+                  <Button
+                    key={list.id}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleListCollapse(list.id)}
+                    className="h-auto py-2 px-3"
+                  >
+                    <div className="flex flex-col items-start">
+                      <span className="font-medium">{list.title}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {list.tasks.length}{" "}
+                        {list.tasks.length == 1 ? "task" : "tasks"}
+                      </span>
+                    </div>
+                  </Button>
+                ))}
+              </div>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowTagFilter(!showTagFilter)}
+              className="gap-2"
+            >
+              <Filter className="h-4 w-4" />
+              Filter by tags
+              {selectedTags.length > 0 && (
+                <Badge variant="secondary" className="ml-1">
+                  {selectedTags.length}
+                </Badge>
+              )}
+            </Button>
+            {selectedTags.length > 0 && (
+              <Button variant="ghost" size="sm" onClick={clearTagFilters}>
+                Clear filters
+              </Button>
+            )}
+          </div>
+        </>
+
+        <>
         {isAddingList ? (
           <div className="max-w-md mx-auto">
             <Card>
@@ -304,6 +306,7 @@ export function KanbanBoard() {
             </Button>
           </div>
         )}
+        </>
       </div>
     </div>
   );
