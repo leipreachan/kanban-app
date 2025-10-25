@@ -23,6 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link
+        rel="icon"
+        href="/icon.png"
+        type="image/png"
+      />
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />
